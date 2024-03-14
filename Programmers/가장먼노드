@@ -1,0 +1,62 @@
+#include <string>
+#include <vector>
+#include <iostream>
+#include <queue>
+using namespace std;
+
+vector<pair<int,int>> node[20001];
+int d[20001] = {0};
+
+void dijkstra(int start){
+    d[start] = 0;
+    priority_queue<pair<int,int>> pq;
+    pq.push(make_pair(0,start));
+    while(!pq.empty()){
+        int current_w = -pq.top().first;
+        int current = pq.top().second;
+        pq.pop();
+        
+        if(current_w > d[current])
+            continue;
+        
+        for(int i = 0; i < node[current].size(); i++){
+            int next_w = current_w + node[current][i].second;
+            int next = node[current][i].first;
+            if(next_w < d[next]){
+                d[next] = next_w;
+                pq.push({-next_w, next});
+            }
+        }
+    }
+    return;
+}
+
+int solution(int n, vector<vector<int>> edge) {
+    int answer = 0;
+    for(int i = 0; i <= n; i++){
+        d[i] = 99999999;
+    }
+    for(int i = 0; i < edge.size(); i++){
+        int st = edge[i][0];
+        int tg = edge[i][1];
+        int w = 1;
+        node[st].push_back({tg,1});
+        node[tg].push_back({st,1});
+    }
+    
+    dijkstra(1);
+    
+    int max_num = 0;
+    
+    for(int i = 1; i <= n; i++){
+        if(d[i] > max_num){
+            answer = 1;
+            max_num = d[i];
+        }
+        else if(d[i] == max_num){
+            answer +=1;
+        }
+    }
+    
+    return answer;
+}
