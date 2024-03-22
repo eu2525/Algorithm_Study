@@ -20,7 +20,7 @@ void merge(int low, int mid, int high) {
 		}
 	}
 	for(int t = j; t <= high; t++)
-    u.push_back(sorted[t]);
+    		u.push_back(sorted[t]);
 	for(int t = i; t <= mid; t++)
 		u.push_back(sorted[t]);
 	for(int t = low; t <= high; t++) {
@@ -41,10 +41,10 @@ int main() {
 	int T;
 	cin >> T;
 	for (int i = 0; i < T; i++) {
-    for (int j = 0; j < 10; j++) {
-      cin >> sorted[j];
-    }
-	mergesort(0, 9);
-	cout << sorted[2] << '\n';
-  }
+		for (int j = 0; j < 10; j++) {
+			cin >> sorted[j];
+    		}
+		mergesort(0, 9);
+		cout << sorted[2] << '\n';
+	}
 }
